@@ -1,35 +1,38 @@
 "use client"
-import React, { useState } from 'react'
-function Main  ()  {
-    const [Location,setLocation]=useState("Barcleona");
-    const [Min,setMin]=useState(0);
-    const [Max,setMax]=useState(0);
-    const [Avg,setAvg]=useState(0);
-    const [cookieStandData, setCookieStandData] = useState([]);
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const newCookieStand = {
-            Location,
-            Min: parseInt(Min),
-            Max: parseInt(Max),
-            Avg: parseFloat(Avg)
-        };
+import { useState } from 'react'
 
+const CreateForm = ({ onCreate }) => {
+  const [Loc, setLoc] = useState('');
+  const [Min,setMin]=useState(0);
+  const [Max,setMax]=useState(0);
+  const [Avg,setAvg]=useState(0);
 
-        setCookieStandData([cookieStandData, newCookieStand]);
+  const [hourlySales, setHourlySales] = useState([48, 42, 30, 24, 42, 24, 36, 42, 42, 48, 36, 42, 24, 36]);
 
-  
-    }
-    return(
-        <div>  <div className="flex justify-center items-center pt-12">
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newCookieStand = {
+      Loc,
+      Min: parseInt(Min),
+      Max: parseInt(Max),
+      Avg: parseFloat(Avg),
+      hourly_sales: hourlySales,
+    };
+    onCreate(newCookieStand);
+   
+
+  };
+
+  return (
+<div>  <div className="flex justify-center items-center pt-12">
         <form className="w-4/6 rounded-lg  bg-emerald-300 flex content-box flex-col items-center  p-5" onSubmit={handleSubmit} >
-        <p className='text-2xl font-bold '>Create Cookie stand</p>
+        <p className='text-2xl font-bold  '>Create Cookie stand</p>
             <div className="flex flex-wrap -mx-3 mb-6 w-full ">
                 <div className="w-full">
                     <label className="block uppercase tracking-wide  text-gray-700 text-xs  font-bold mb-2" htmlFor="grid-password "  >
                      Location
                     </label>
-                    <input  onChange={(e)=>setLocation(e.target.value)} value={Location} className="appearance-none block w-full  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"  type="text" placeholder={Location}>
+                    <input  onChange={(e)=>setLoc(e.target.value)} value={Loc} className="appearance-none block w-full  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"  type="text" placeholder={Loc}>
                     </input>
                 </div>
             </div>
@@ -60,11 +63,9 @@ function Main  ()  {
                    </div>   
             </div>
         </form></div>
-<p className='flex justify-center items-center'>Report table comming soon...</p>  <div className="flex justify-center items-center">
-                <pre>{JSON.stringify(cookieStandData[cookieStandData.length - 1], null, 2)}</pre>
+  </div>
+    
+  );
+};
 
-            </div></div>
- 
-    )
-}
-export default Main
+export default CreateForm;

@@ -1,7 +1,13 @@
+
+import Overview from '../Overview/page'
+
+import Link from 'next/link'
 import React from 'react'
+
 function Header(){
     return(
-        <p className='text-2xl  bg-emerald-400 font-bold'>Cookie Stand Admin</p>
-    )
+       <div> <p className='text-2xl  bg-emerald-400 font-bold'>Cookie Stand Admin </p>
+<Link href='/Overview'>Overview</Link>
+   </div> )
 }
 export default Header
