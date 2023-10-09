@@ -2,24 +2,25 @@
 import { useState } from 'react'
 
 const CreateForm = ({ onCreate }) => {
-  const [Loc, setLoc] = useState('');
-  const [Min,setMin]=useState(0);
-  const [Max,setMax]=useState(0);
-  const [Avg,setAvg]=useState(0);
-
-  const [hourlySales, setHourlySales] = useState([48, 42, 30, 24, 42, 24, 36, 42, 42, 48, 36, 42, 24, 36]);
+  const [location, setlocation] = useState('');
+  const [owner, setowner] = useState('');
+  const [description, setdescription] = useState('');
+  const [maximumCustomersPerHour,setmaximumCustomersPerHour]=useState(0);
+  const [minimumCustomersPerHour,setminimumCustomersPerHour]=useState(0);
+  const [averageCookiesPerSale,setaverageCookiesPerSale]=useState(0);
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newCookieStand = {
-      Loc,
-      Min: parseInt(Min),
-      Max: parseInt(Max),
-      Avg: parseFloat(Avg),
-      hourly_sales: hourlySales,
+        location,
+      description,
+      maximumCustomersPerHour: parseInt(maximumCustomersPerHour),
+      minimumCustomersPerHour: parseInt(minimumCustomersPerHour),
+      averageCookiesPerSale: parseFloat(averageCookiesPerSale),
+    owner,
     };
     onCreate(newCookieStand);
-   
 
   };
 
@@ -32,33 +33,51 @@ const CreateForm = ({ onCreate }) => {
                     <label className="block uppercase tracking-wide  text-gray-700 text-xs  font-bold mb-2" htmlFor="grid-password "  >
                      Location
                     </label>
-                    <input  onChange={(e)=>setLoc(e.target.value)} value={Loc} className="appearance-none block w-full  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"  type="text" placeholder={Loc}>
+                    <input required onChange={(e)=>setlocation(e.target.value)} value={location} className="appearance-none block w-full  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"  type="text" placeholder={location}>
                     </input>
                 </div>
             </div>
         
            
             <div className="flex flex-wrap -mx-3 mb-2">
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-city">
                         Min. Customer per Hour
                     </label>
-                    <input onChange={(e)=>setMin(e.target.value)} value={Min}  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="number" placeholder={Min}>
+                    <input required onChange={(e)=>setminimumCustomersPerHour(e.target.value)} value={minimumCustomersPerHour}  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="number" placeholder={minimumCustomersPerHour}>
                     </input></div>
 
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0">
                     <label  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-zip">
                 Max. Customer per Hour
                     </label>
-                    <input  onChange={(e)=>setMax(e.target.value)} value={Max}  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="number" placeholder={Max}>
+                    <input required onChange={(e)=>setmaximumCustomersPerHour(e.target.value)} value={maximumCustomersPerHour}  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="number" placeholder={maximumCustomersPerHour}>
                     </input>  </div>  
-                        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-zip">
                         Avg. Cookie per  Sales
                     </label>
-                    <input    onChange={(e)=>setAvg(e.target.value)} value={Avg}   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="number" placeholder={Avg}>
+                    <input  required  onChange={(e)=>setaverageCookiesPerSale(e.target.value)} value={averageCookiesPerSale}   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="number" placeholder={averageCookiesPerSale}>
                     </input>
-                   </div>    <div className="w-full md:w-1/4  px-3 mb-6 md:mb-0">
+                    
+                   </div>   
+                   <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-zip">
+                    owner
+                    </label>
+                    <input required   onChange={(e)=>setowner(e.target.value)} value={owner}   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder={owner}>
+                    </input>
+                    
+                   </div>  
+                   <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-zip">
+                    description
+                    </label>
+                    <input  required  onChange={(e)=>setdescription(e.target.value)} value={description}   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder={description}>
+                    </input>
+                    
+                   </div>  
+                    <div className="w-full md:w-1/6  px-3 mb-6 md:mb-0">
                    <button className=' bg-emerald-400 font-bold text-2xl min-h-full min-w-full rounded-lg' type="submit"  > Create</button>
                    </div>   
             </div>

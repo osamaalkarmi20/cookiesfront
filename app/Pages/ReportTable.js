@@ -1,16 +1,41 @@
-const ReportTable = ({ hours, reports }) => {
+import { useState, useEffect } from 'react'
+import React from 'react'
+import axios from 'axios'
+const ReportTable = ({ hours,onDelete}) => {
+
+
+  const [reports, setReports] = useState([]);
+
+  // Fetch data from the local API
+  const fetchData = () => {
+    axios
+      .get('https://cookie-stand-api20231009101259.azurewebsites.net/CookieStand')
+      .then((response) => {
+        setReports(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  };
+
+  useEffect(() => {
+    // This effect will run whenever onDelete is called in the parent component
+    fetchData();
+
+  }, []);
 
   if (reports.length === 0) {
     return <h2 className=" font-bold  flex content-box flex-col justify-items-center ml-64 mt-6">No Cookie Stands Available</h2>;
   }
   const totalsPerStand = reports.map((report) =>
-  report.hourly_sales.reduce((acc, sales) => acc + sales, 0)
-);  
-const totalsPerHour = hours.map((hour, index) =>
-reports.reduce((acc, report) => acc + report.hourly_sales[index], 0)
-);
+   report.hourlySales.reduce((acc, sales) => acc + sales, 0)
+ );  
+ const totalsPerHour = hours.map((hour, index) =>
+ reports.reduce((acc, report) => acc + report.hourlySales[index], 0)
+ );
  const totalAllStands = totalsPerStand.reduce((acc, total) => acc + total, 0);
-  const grandTotal = totalsPerHour.reduce((acc, total) => acc + total, 0);
+   const grandTotal = totalsPerHour.reduce((acc, total) => acc + total, 0);
 
 
 return (
@@ -28,11 +53,12 @@ return (
       <tbody >
         {reports.map((report, index) => (
           <tr key={index} className={index % 2 ? "bg-emerald-400" : "bg-emerald-300"}>
-            <td className="border-2 border-black">{report.Loc}</td>
-            {report.hourly_sales.map((sales, index) => (
+            <td className="border-2 border-black">{report.location} <button onClick={() => onDelete(report.id)}>Delete</button></td>
+        {report.hourlySales.map((sales, index) => (
               <td key={index} className="border-2 border-black">{sales} </td>
-            ))}
-            <td className="border-2 border-black">{totalsPerStand[index]}</td>
+            ))}  
+           
+             <td className="border-2 border-black">{totalsPerStand[index]}</td> 
           </tr>
         ))}
         <tr className="bg-emerald-600 border-2 border-black">
@@ -40,7 +66,7 @@ return (
           {totalsPerHour.map((total, index) => (
             <td key={index} className="border-2 border-black">{total}</td>
           ))}
-          <td className="border-2 border-black">{totalAllStands}</td>
+          <td className="border-2 border-black">{totalAllStands}</td> 
         </tr>
       </tbody>
     </table>
