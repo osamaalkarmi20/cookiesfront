@@ -23,7 +23,7 @@ const ReportTable = ({ hours,onDelete}) => {
     // This effect will run whenever onDelete is called in the parent component
     fetchData();
 
-  }, []);
+  }, [reports]);
 
   if (reports.length === 0) {
     return <h2 className=" font-bold  flex content-box flex-col justify-items-center ml-64 mt-6">No Cookie Stands Available</h2>;
